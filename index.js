@@ -3,7 +3,7 @@ require("isomorphic-fetch");
 const crypto = require("crypto");
 const hmac = crypto.createHmac;
 
-const request = (path, postdata, key, secret) => {
+const request = (endpoint, postdata, key, secret) => {
 	const root_url = "https://www.coinspot.com.au";
 	let nonce = new Date().getTime();
 
