@@ -22,7 +22,8 @@ const request = (endpoint, postdata, key, secret) => {
 			"Content-Type": "application/json",
 			sign: sign,
 			key: key
-		}
+		},
+		body: stringmessage
 	});
 };
 
