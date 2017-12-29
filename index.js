@@ -18,12 +18,13 @@ const request = (endpoint, postdata, key, secret) => {
 	let sign = signedMessage.digest("hex");
 
 	return fetch(`${root_url}${endpoint}`, {
+		method: 'POST',
 		headers: {
 			"Content-Type": "application/json",
 			sign: sign,
 			key: key
 		},
-		body: stringmessage
+		body: JSON.stringify({nonce})
 	});
 };
 
