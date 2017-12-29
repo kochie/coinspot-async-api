@@ -1,6 +1,6 @@
 {
-	"name": "coinspot-api",
-	"version": "0.0.1",
+	"name": "coinspot-async-api",
+	"version": "0.0.2",
 	"description": "An async api for coinspot",
 	"main": "index.js",
 	"scripts": {
@@ -8,20 +8,27 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kochie/coinspot-api.git"
+		"url": "git+https://github.com/kochie/coinspot-async-api.git"
 	},
-	"keywords": ["coinspot", "crypto", "rest"],
+	"keywords": [
+		"coinspot",
+		"crypto",
+		"rest"
+	],
 	"author": "robert@kochie.io",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/kochie/coinspot-api/issues"
+		"url": "https://github.com/kochie/coinspot-async-api/issues"
 	},
-	"homepage": "https://github.com/kochie/coinspot-api#readme",
+	"homepage": "https://github.com/kochie/coinspot-async-api#readme",
 	"dependencies": {
 		"whatwg-fetch": "^2.0.3"
 	},
 	"prettier": {
 		"useTabs": true,
 		"tabWidth": 4
+	},
+	"devDependencies": {
+		"ava": "^0.24.0"
 	}
 }
