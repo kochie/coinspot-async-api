@@ -1,4 +1,4 @@
-require("whatwg-fetch");
+require("isomorphic-fetch");
 
 const crypto = require("crypto");
 const hmac = crypto.createHmac;
