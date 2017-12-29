@@ -3,7 +3,7 @@ require("whatwg-fetch");
 const crypto = require("crypto");
 const hmac = crypto.createHmac;
 
-var request = function(path, postdata) {
+const request = (path, postdata, key, secret) => {
 	const root_url = "https://www.coinspot.com.au";
 	let nonce = new Date().getTime();
 
@@ -11,7 +11,7 @@ var request = function(path, postdata) {
 	postdata.nonce = nonce;
 
 	let stringmessage = JSON.stringify(postdata);
-	let signedMessage = new hmac("sha512", self.secret);
+	let signedMessage = new hmac("sha512", secret);
 
 	signedMessage.update(stringmessage);
 
@@ -21,7 +21,7 @@ var request = function(path, postdata) {
 		headers: {
 			"Content-Type": "application/json",
 			sign: sign,
-			key: self.key
+			key: key
 		}
 	});
 };
@@ -33,55 +33,80 @@ class coinspot {
 	}
 
 	sendcoin(cointype, amount, address) {
-		return request("/api/my/coin/send", {
-			cointype: cointype,
-			amount: amount,
-			address: address
-		});
+		return request(
+			"/api/my/coin/send",
+			{
+				cointype: cointype,
+				amount: amount,
+				address: address
+			},
+			this.key,
+			this.secret
+		);
 	}
 
 	coindeposit(cointype) {
-		return request("/api/my/coin/deposit", { cointype: cointype });
+		return request(
+			"/api/my/coin/deposit",
+			{ cointype: cointype },
+			this.key,
+			this.secret
+		);
 	}
 
 	quotebuy(cointype, amount) {
-		return request("/api/quote/buy", {
-			cointype: cointype,
-			amount: amount
-		});
+		return request(
+			"/api/quote/buy",
+			{
+				cointype: cointype,
+				amount: amount
+			},
+			this.key,
+			this.secret
+		);
 	}
 
 	quotesell(cointype, amount) {
-		return request("/api/quote/sell", {
-			cointype: cointype,
-			amount: amount
-		});
+		return request(
+			"/api/quote/sell",
+			{
+				cointype: cointype,
+				amount: amount
+			},
+			this.key,
+			this.secret
+		);
 	}
 
 	balances() {
-		return request("/api/my/balances", {});
+		return request("/api/my/balances", {}, this.key, this.secret);
 	}
 
 	orders(cointype) {
-		return request("/api/orders", { cointype: cointype });
+		return request(
+			"/api/orders",
+			{ cointype: cointype },
+			this.key,
+			this.secret
+		);
 	}
 
 	myorders() {
-		return request("/api/my/orders", {});
+		return request("/api/my/orders", {}, this.key, this.secret);
 	}
 
 	spot() {
-		return request("/api/spot", {});
+		return request("/api/spot", {}, this.key, this.secret);
 	}
 
 	buy(cointype, amount, rate) {
 		let data = { cointype: cointype, amount: amount, rate: rate };
-		return request("/api/my/buy", data);
+		return request("/api/my/buy", data, this.key, this.secret);
 	}
 
 	sell(cointype, amount, rate) {
 		let data = { cointype: cointype, amount: amount, rate: rate };
-		return request("/api/my/sell", data);
+		return request("/api/my/sell", data, this.key, this.secret);
 	}
 }
 
