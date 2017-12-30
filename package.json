@@ -1,6 +1,6 @@
 {
 	"name": "coinspot-async-api",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "An async api for coinspot",
 	"main": "index.js",
 	"scripts": {
