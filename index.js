@@ -18,13 +18,13 @@ const request = (endpoint, postdata, key, secret) => {
 	let sign = signedMessage.digest("hex");
 
 	return fetch(`${root_url}${endpoint}`, {
-		method: 'POST',
+		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 			sign: sign,
 			key: key
 		},
-		body: JSON.stringify({nonce})
+		body: JSON.stringify({ nonce })
 	});
 };
 
@@ -32,6 +32,10 @@ class coinspot {
 	constructor(key, secret) {
 		this.key = key;
 		this.secret = secret;
+	}
+
+	prices() {
+		return request("/pubapi/latest", {}, this.key, this.secret);
 	}
 
 	sendcoin(cointype, amount, address) {
@@ -109,6 +113,16 @@ class coinspot {
 	sell(cointype, amount, rate) {
 		let data = { cointype: cointype, amount: amount, rate: rate };
 		return request("/api/my/sell", data, this.key, this.secret);
+	}
+
+	cancelbuy(buyId) {
+		let data = { id: buyId };
+		return request("/my/buy/cancel", data, this.key, this.secret);
+	}
+
+	cancelsell(sellId) {
+		let data = { id: sellId };
+		return request("/my/sell/cancel", data, this.key, this.secret);
 	}
 }
 
