@@ -2,9 +2,9 @@ require("isomorphic-fetch");
 
 const crypto = require("crypto");
 const hmac = crypto.createHmac;
+const root_url = "https://www.coinspot.com.au";
 
 const request = (endpoint, postdata, key, secret) => {
-	const root_url = "https://www.coinspot.com.au";
 	let nonce = new Date().getTime();
 
 	postdata = postdata || {};
@@ -35,7 +35,7 @@ class coinspot {
 	}
 
 	prices() {
-		return request("/pubapi/latest", {}, this.key, this.secret);
+		return fetch(`${root_url}${"/pubapi/latest"}`);
 	}
 
 	sendcoin(cointype, amount, address) {
