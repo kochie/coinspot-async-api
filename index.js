@@ -45,10 +45,15 @@ class coinspot {
 		);
 		const coinDOM = cheerio.load(page_html);
 		const getCoinRate = coin => {
-			const buySellPrice = coinDOM(`li[data-coin=${coin}]`)
+			let buySellPrice = coinDOM(`li[data-coin=${coin}]`);
+			if (buySellPrice.length === 0) {
+				return undefined;
+			}
+			buySellPrice = buySellPrice
 				.children()
 				.children()
 				.slice(1, 3);
+
 			return {
 				buy: parseFloat(
 					buySellPrice
@@ -82,7 +87,10 @@ class coinspot {
 		}
 		coins.forEach(coin => {
 			if (typeof coin === "string") {
-				rates[coin] = getCoinRate(coin);
+				const rate = getCoinRate(coin);
+				if (rate !== undefined) {
+					rates[coin] = rate;
+				}
 			}
 		});
 		return rates;
