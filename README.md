@@ -60,6 +60,28 @@ client.marketrates(["BTC", "ETH"]).then(data => {
 //   "ETH" : { buy: 20000.00, sell: 20000.00 } }
 ```
 
+### `sendcoins`
+
+### `coindeposit`
+
+### `quotebuy`
+
+### `quotesell`
+
+### `balances`
+
+### `orders`
+
+### `spot`
+
+### `buy`
+
+### `sell`
+
+### `cancelbuy`
+
+### `cancelsell`
+
 ## Supported Endpoins
 
 | Function      | Endpoint               |
@@ -74,6 +96,8 @@ client.marketrates(["BTC", "ETH"]).then(data => {
 | `spot`        | "/api/spot"            |
 | `buy`         | "/api/my/buy"          |
 | `sell`        | "/api/my/sell"         |
+| `cancelbuy`   | "/my/buy/cancel"       |
+| `cancelsell`  | "/my/sell/cancel"      |
 
 ## Contributing
 
