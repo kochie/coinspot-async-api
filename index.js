@@ -50,8 +50,18 @@ class coinspot {
 				.children()
 				.slice(1, 3);
 			return {
-				buy: buySellPrice[0].text().slice(0, -1),
-				sell: buySellPrice[1].text().slice(0, -1)
+				buy: parseFloat(
+					buySellPrice
+						.eq(0)
+						.text()
+						.slice(1)
+				),
+				sell: parseFloat(
+					buySellPrice
+						.eq(1)
+						.text()
+						.slice(1)
+				)
 			};
 		};
 		const getAllCoins = () => {
@@ -60,14 +70,21 @@ class coinspot {
 				.children()
 				.slice(2, -1);
 			for (let i = 0; i < allCoins.length; i = i + 2) {
-				c.push(allCoins[i].attr("data-coin"));
+				c.push(allCoins.eq(i).attr("data-coin"));
 			}
+			return c;
 		};
 		const rates = {};
-		if (coins.length === 0) {
+		if (typeof coins === "string") {
+			coins = [coins];
+		} else if (coins === undefined || coins.length === 0) {
 			coins = getAllCoins();
 		}
-		coins.forEach(coin => (rates.coin = getCoinRate(coin)));
+		coins.forEach(coin => {
+			if (typeof coin === "string") {
+				rates[coin] = getCoinRate(coin);
+			}
+		});
 		return rates;
 	}
 
